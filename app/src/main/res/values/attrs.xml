@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FitImageView">
+        <attr name="fiv_direction">
+            <enum name="landscape" value="0"/>
+            <enum name="portrait" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ScrollImageView">
+        <attr name="siv_src" format="reference"/>
+        <attr name="siv_autoPlay" format="boolean"/>
+        <attr name="siv_duration" format="integer"/>
+        <attr name="siv_direction">
+            <enum name="landscape" value="0"/>
+            <enum name="portrait" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

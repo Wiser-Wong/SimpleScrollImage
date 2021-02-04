@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="portraitScrollImage"
+        android:text="纵向长图滚动" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="landscapeScrollImage"
+        android:text="横向长图滚动" />
+
+    <com.wiser.splashscrollimage.ScrollImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:siv_autoPlay="true"
+        app:siv_direction="landscape"
+        app:siv_src="@drawable/b"
+        app:siv_duration="1000"
+        android:id="@+id/siv"/>
+
+</LinearLayout>
