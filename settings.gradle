@@ -1,2 +1,3 @@
+include ':scrollImage'
 include ':app'
 rootProject.name = "SplashScrollImage"

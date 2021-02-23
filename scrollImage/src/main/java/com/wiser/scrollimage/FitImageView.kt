@@ -1,4 +1,4 @@
-package com.wiser.splashscrollimage
+package com.wiser.scrollimage
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -6,6 +6,10 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.ceil
 
+/**
+ * 超过所展示的界面不裁剪也不拉伸，平铺展示
+ * @author Wiser
+ */
 class FitImageView(context: Context, attr: AttributeSet) : AppCompatImageView(context, attr) {
 
     private var direction: Int = PORTRAIT
@@ -38,7 +42,7 @@ class FitImageView(context: Context, attr: AttributeSet) : AppCompatImageView(co
                     ).toInt()
                 }
                 LANDSCAPE -> {
-                    height = MeasureSpec.getSize(widthMeasureSpec)
+                    height = MeasureSpec.getSize(heightMeasureSpec)
                     width = ceil(
                         (height.toFloat() * drawable.intrinsicWidth.toFloat() / drawable.intrinsicHeight
                             .toFloat()).toDouble()
@@ -46,7 +50,14 @@ class FitImageView(context: Context, attr: AttributeSet) : AppCompatImageView(co
                 }
             }
 
-            setMeasuredDimension(width, height)
+            setMeasuredDimension(
+                if (width > MeasureSpec.getSize(widthMeasureSpec)) width else MeasureSpec.getSize(
+                    widthMeasureSpec
+                ),
+                if (height > MeasureSpec.getSize(heightMeasureSpec)) height else MeasureSpec.getSize(
+                    heightMeasureSpec
+                )
+            )
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         }

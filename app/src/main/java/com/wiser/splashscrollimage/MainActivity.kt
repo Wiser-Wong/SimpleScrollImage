@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     fun landscapeScrollImage(view: View) {
 //        startActivity(Intent(this, LandscapeScrollImageActivity::class.java))
-        siv?.startScroll()
+        siv?.setResIds(mutableListOf(R.drawable.b,R.drawable.e))
+//        siv?.startScroll()
     }
 }

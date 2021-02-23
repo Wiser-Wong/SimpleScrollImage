@@ -11,6 +11,10 @@
         <attr name="siv_src" format="reference"/>
         <attr name="siv_autoPlay" format="boolean"/>
         <attr name="siv_duration" format="integer"/>
+        <attr name="siv_switch_interval_duration" format="integer"/>
+        <attr name="siv_circlePlay" format="boolean"/>
+        <attr name="siv_delayPlayDuration" format="integer"/>
+        <attr name="siv_speed" format="integer"/>
         <attr name="siv_direction">
             <enum name="landscape" value="0"/>
             <enum name="portrait" value="1"/>
