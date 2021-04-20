@@ -19,17 +19,8 @@
         android:onClick="landscapeScrollImage"
         android:text="横向长图滚动" />
 
-    <com.wiser.scrollimage.ScrollImageView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:siv_autoPlay="true"
-        app:siv_direction="landscape"
-        app:siv_src="@drawable/g"
-        app:siv_duration="10000"
-        app:siv_delayPlayDuration="800"
-        app:siv_circlePlay="true"
-        app:siv_switch_interval_duration="1000"
-        android:id="@+id/siv"/>
-
+        android:layout_height="match_parent" />
 </LinearLayout>

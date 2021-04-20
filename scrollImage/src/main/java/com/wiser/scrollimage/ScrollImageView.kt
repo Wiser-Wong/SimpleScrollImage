@@ -90,9 +90,29 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
     private var isCirclePlay: Boolean = false
 
     /**
+     * 是否正在播放
+     */
+    private var isPlaying: Boolean = false
+
+    /**
+     * 切换进入动画
+     */
+    private var switchAnimIn: Int = android.R.anim.fade_in
+
+    /**
+     * 切换退出动画
+     */
+    private var switchAnimOut: Int = android.R.anim.fade_out
+
+    /**
      * 加载网络图片监听器
      */
     private var loadNetImageListener: LoadNetImageListener? = null
+
+    /**
+     * 是否初始化切换动画
+     */
+    private var isInitSwitchAnim: Boolean = true;
 
     companion object {
         /**
@@ -120,6 +140,8 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
         src = ta.getResourceId(R.styleable.ScrollImageView_siv_src, -1)
         autoPlay = ta.getBoolean(R.styleable.ScrollImageView_siv_autoPlay, autoPlay)
         isCirclePlay = ta.getBoolean(R.styleable.ScrollImageView_siv_circlePlay, isCirclePlay)
+        switchAnimIn = ta.getResourceId(R.styleable.ScrollImageView_siv_switch_anim_in, switchAnimIn)
+        switchAnimOut = ta.getResourceId(R.styleable.ScrollImageView_siv_switch_anim_out, switchAnimOut)
         ta.recycle()
 
         addView(initImageSwitcher())
@@ -136,8 +158,8 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
         val layoutParams =
             LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         imageSwitcher?.layoutParams = layoutParams
-        imageSwitcher?.setInAnimation(context, android.R.anim.fade_in)
-        imageSwitcher?.setOutAnimation(context, android.R.anim.fade_out)
+//        imageSwitcher?.setInAnimation(context, switchAnimIn)
+//        imageSwitcher?.setOutAnimation(context, switchAnimOut)
         imageSwitcher?.setFactory(this)
         return imageSwitcher
     }
@@ -161,14 +183,27 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
         animator?.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
+                if (!isPlaying) {
+                    return
+                }
                 postDelayed(Runnable {
                     ++index
                     // 是否能够继续播放
                     if (isCanContinuePlay()) {
+                        if (isInitSwitchAnim) {
+                            imageSwitcher?.setInAnimation(context, switchAnimIn)
+                            imageSwitcher?.setOutAnimation(context, switchAnimOut)
+                            isInitSwitchAnim = false
+                        }
                         startScroll(index)
                     } else {
                         // 是否循环播放
                         if (isCirclePlay) {
+                            if (isInitSwitchAnim) {
+                                imageSwitcher?.setInAnimation(context, switchAnimIn)
+                                imageSwitcher?.setOutAnimation(context, switchAnimOut)
+                                isInitSwitchAnim = false
+                            }
                             startScroll(0)
                         }
                     }
@@ -192,23 +227,25 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
     /**
      * 设置图片组 本地图片
      */
-    fun setResIds(resIds: MutableList<Int>?) {
+    fun setResIds(resIds: MutableList<Int>?,isPlay: Boolean = false) {
         this.resIds = resIds
         resIds?.get(0)?.let {
             this.index = 0
             imageSwitcher?.setImageResource(it)
         }
+        if (isPlay && !isPlaying) startScroll()
     }
 
     /**
      * 设置图片组 网络图片
      */
-    fun setUrls(urls: MutableList<String>?) {
+    fun setUrls(urls: MutableList<String>?,isPlay: Boolean = false) {
         this.urls = urls
         urls?.get(0)?.let {
             this.index = 0
             loadNetImageListener?.loadNetImage(it)
         }
+        if (isPlay && !isPlaying) startScroll()
     }
 
     /**
@@ -276,7 +313,14 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
         setIndex(index)
         setImageViewResource()
 
+        // 没有资源就不滚动
+        if ((src == -1 && (urls == null || urls?.size == 0) && (resIds == null || resIds?.size == 0))) {
+            isPlaying = false
+            return
+        }
+
         postDelayed(Runnable {
+            isPlaying = true
             var scrollDistance = 0f
             when (direction) {
                 LANDSCAPE -> scrollDistance =
@@ -291,7 +335,6 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
             }
             animator?.start()
         }, delayPlayDuration.toLong())
-
     }
 
     /**
@@ -299,6 +342,7 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
      */
     fun pauseScroll() {
         animator?.pause()
+        isPlaying = false
     }
 
     /**
@@ -306,6 +350,16 @@ class ScrollImageView(context: Context, var attr: AttributeSet) : FrameLayout(co
      */
     fun resumeScroll() {
         animator?.resume()
+        isPlaying = true
+    }
+
+    /**
+     * 停止
+     */
+    fun stopPlay() {
+        isPlaying = false
+        animator?.cancel()
+        resetTranslation()
     }
 
     /**

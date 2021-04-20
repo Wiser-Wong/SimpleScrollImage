@@ -6,26 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rlv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
-
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"/>-->
-
     <com.wiser.scrollimage.ScrollImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:siv_autoPlay="true"
-        app:siv_direction="portrait"
+        app:siv_autoPlay="false"
+        app:siv_direction="landscape"
         app:siv_circlePlay="true"
         app:siv_duration="10000"
         app:siv_delayPlayDuration="1000"
-        app:siv_speed="50"
+        app:siv_speed="150"
+        app:siv_switch_interval_duration="100"
+        app:siv_switch_anim_in="@anim/fade_in"
+        app:siv_switch_anim_out="@anim/fade_out"
         android:id="@+id/siv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

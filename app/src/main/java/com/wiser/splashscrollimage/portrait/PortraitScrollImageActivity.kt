@@ -9,7 +9,7 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.wiser.scrollimage.LoadNetImageListener
 import com.wiser.splashscrollimage.R
-import kotlinx.android.synthetic.main.activity_scroll_image.*
+import kotlinx.android.synthetic.main.activity_scroll_image_portrait.*
 
 class PortraitScrollImageActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class PortraitScrollImageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scroll_image)
+        setContentView(R.layout.activity_scroll_image_portrait)
 
 //        rlv?.layoutManager = ScrollLinearLayoutManager(this)
 //        rlv?.adapter = PortraitAdapter()
@@ -43,7 +43,6 @@ class PortraitScrollImageActivity : AppCompatActivity() {
         siv?.setUrls(
             mutableListOf(
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F202003%2F12%2F2020031281829_NGYhH.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1616652276&t=569fb9467fc24675d2c8a7a549ff3acf",
-                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa1.att.hudong.com%2F57%2F92%2F01300542193590138063924441627.jpg&refer=http%3A%2F%2Fa1.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1616650210&t=486b003a8b04da9d38da0081b75fc593",
                 "https://upload-images.jianshu.io/upload_images/5196125-6accb784544121d4.jpeg?imageMogr2/auto-orient/strip|imageView2/2/w/348",
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcms-bucket.nosdn.127.net%2F08d4ff98e8c546f3ab663ff01f23ea8120180421142038.jpeg%3FimageView%26thumbnail%3D550x0&refer=http%3A%2F%2Fcms-bucket.nosdn.127.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1616582270&t=b96a2d11d4b5987ff761732571494580",
                 "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1029839458,1788453591&fm=26&gp=0.jpg",

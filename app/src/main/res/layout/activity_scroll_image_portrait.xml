@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <com.wiser.scrollimage.ScrollImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:siv_autoPlay="true"
+        app:siv_direction="portrait"
+        app:siv_circlePlay="true"
+        app:siv_duration="10000"
+        app:siv_delayPlayDuration="1000"
+        app:siv_speed="1050"
+        android:id="@+id/siv"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
